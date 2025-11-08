@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Container, Row, Col, Button, Modal, Form, Card, Badge } from 'react-bootstrap'
 import logo from './assets/logo.png'
 import './App.css'
 
@@ -44,6 +45,17 @@ function App() {
     },
     {
       id: 4,
+      categoria: 'Pack Saludable Sureño',
+      destacado: true,
+      items: [
+        { nombre: 'Pack Lonco', descripcion: 'Bowl proteico + Smoothie verde + Brownie vegano', precio: 11500, descuento: 1300, imagen: '🌿', badge: '¡Ahorra $1300!' },
+        { nombre: 'Pack Pewén', descripcion: 'Ruka BBQ + Jugo natural + Galletas chocochip', precio: 9000, descuento: 500, imagen: '🌲', badge: '¡Ahorra $500!' },
+        { nombre: 'Pack Rayen', descripcion: 'Buddha Bowl + Batido de frutos rojos + Cheesecake', precio: 12500, descuento: 700, imagen: '🌸', badge: '¡Ahorra $700!' },
+        { nombre: 'Pack Lafken', descripcion: 'Poke Bowl + Smoothie verde + 2 Galletas', precio: 11500, descuento: 1000, imagen: '🌊', badge: '¡Ahorra $1000!' }
+      ]
+    },
+    {
+      id: 5,
       categoria: 'Bebidas',
       items: [
         { nombre: 'Smoothie Verde', descripcion: 'Espinaca, plátano, manzana, jengibre', precio: 3500, imagen: '🥤' },
@@ -52,7 +64,7 @@ function App() {
       ]
     },
     {
-      id: 5,
+      id: 6,
       categoria: 'Postres',
       items: [
         { nombre: 'Brownie Vegano', descripcion: 'Chocolate belga, nueces, sin azúcar refinada', precio: 2800, imagen: '🍰' },
@@ -146,34 +158,31 @@ ${formData.comentarios}
   return (
     <div style={{ backgroundColor: '#f8f8f8', minHeight: '100vh' }}>
       {/* Header */}
-      <header style={{
+      <header className="fade-in" style={{
         backgroundColor: '#4a7c59',
         color: 'white',
-        padding: '1.5rem 2rem',
+        padding: '1.5rem 0',
         position: 'sticky',
         top: 0,
         zIndex: 100,
         boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
       }}>
-        <div style={{ 
-          maxWidth: '1200px', 
-          margin: '0 auto',
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          flexWrap: 'wrap',
-          gap: '1rem'
-        }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-            <img src={logo} alt="Ruka Vegana" style={{ height: '60px', width: '60px', objectFit: 'contain' }} />
-            <div>
-              <h1 style={{ margin: 0, fontSize: 'clamp(1.5rem, 4vw, 2rem)' }}>Ruka Vegana</h1>
-              <p style={{ margin: 0, fontSize: 'clamp(0.9rem, 2vw, 1rem)', opacity: 0.9 }}>Angol - Comida Rápida 100% Vegana</p>
-            </div>
-          </div>
-          <div style={{ display: 'flex', gap: '1rem' }}>
-            <button
-              onClick={() => setModalContacto(true)}
+        <Container>
+          <Row className="align-items-center">
+            <Col xs={12} md={6} className="slide-in-left mb-3 mb-md-0">
+              <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                <img src={logo} alt="Ruka Vegana" className="animate-pulse" style={{ height: '60px', width: '60px', objectFit: 'contain' }} />
+                <div>
+                  <h1 style={{ margin: 0, fontSize: 'clamp(1.5rem, 4vw, 2rem)' }}>Ruka Vegana</h1>
+                  <p style={{ margin: 0, fontSize: 'clamp(0.9rem, 2vw, 1rem)', opacity: 0.9 }}>Angol - Comida Rápida 100% Vegana</p>
+                </div>
+              </div>
+            </Col>
+            <Col xs={12} md={6} className="slide-in-right">
+              <div className="d-flex gap-2 justify-content-md-end justify-content-center flex-wrap">
+                <button
+                  onClick={() => setModalContacto(true)}
+              className="btn-modern hover-scale"
               style={{
                 backgroundColor: 'white',
                 color: '#4a7c59',
@@ -190,6 +199,7 @@ ${formData.comentarios}
             {carrito.length > 0 && (
               <button
                 onClick={() => setModalPedido(true)}
+                className="btn-modern hover-scale animate-bounce"
                 style={{
                   backgroundColor: '#8fbc8f',
                   color: 'white',
@@ -205,92 +215,135 @@ ${formData.comentarios}
                 🛒 Carrito ({carrito.length})
               </button>
             )}
-          </div>
-        </div>
+              </div>
+            </Col>
+          </Row>
+        </Container>
       </header>
 
       {/* Menu */}
-      <main style={{ padding: '2rem', maxWidth: '1200px', margin: '0 auto' }}>
-        <section style={{ textAlign: 'center', marginBottom: '3rem' }}>
-          <h2 style={{ fontSize: 'clamp(1.8rem, 4vw, 2.5rem)', color: '#4a7c59', marginBottom: '0.5rem' }}>
-            Nuestro Menú
-          </h2>
-          <p style={{ fontSize: 'clamp(1rem, 2vw, 1.2rem)', color: '#666' }}>
-            Comida rápida vegana, saludable y deliciosa 🌱
-          </p>
-        </section>
+      <main style={{ padding: 'clamp(1rem, 3vw, 2rem)' }}>
+        <Container>
+          <section className="slide-up delay-1" style={{ textAlign: 'center', marginBottom: '3rem' }}>
+            <h2 style={{ fontSize: 'clamp(1.8rem, 4vw, 2.5rem)', color: '#4a7c59', marginBottom: '0.5rem' }}>
+              Nuestro Menú
+            </h2>
+            <p style={{ fontSize: 'clamp(1rem, 2vw, 1.2rem)', color: '#666' }}>
+              Comida rápida vegana, saludable y deliciosa 🌱
+            </p>
+          </section>
 
-        {menu.map(categoria => (
-          <section key={categoria.id} style={{ marginBottom: '3rem' }}>
-            <h3 style={{
-              fontSize: 'clamp(1.5rem, 3vw, 2rem)',
-              color: '#4a7c59',
+        {menu.map((categoria, catIndex) => (
+          <section key={categoria.id} className={`slide-up delay-${Math.min(catIndex + 2, 6)}`} style={{ marginBottom: '3rem' }}>
+            <div style={{ 
+              display: 'flex', 
+              alignItems: 'center', 
+              gap: '1rem', 
               marginBottom: '1.5rem',
-              paddingBottom: '0.5rem',
-              borderBottom: '3px solid #8fbc8f'
+              flexWrap: 'wrap'
             }}>
-              {categoria.categoria}
-            </h3>
-            <div style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
-              gap: '1.5rem'
-            }}>
+              <h3 style={{
+                fontSize: 'clamp(1.5rem, 3vw, 2rem)',
+                color: '#4a7c59',
+                margin: 0,
+                paddingBottom: '0.5rem',
+                borderBottom: '3px solid #8fbc8f',
+                flex: '1',
+                minWidth: '200px'
+              }}>
+                {categoria.categoria}
+              </h3>
+              {categoria.destacado && (
+                <Badge bg="danger" className="animate-pulse" style={{ fontSize: 'clamp(0.8rem, 2vw, 0.9rem)' }}>
+                  ⭐ ¡OFERTAS ESPECIALES!
+                </Badge>
+              )}
+            </div>
+            <Row className="g-3 g-md-4">
               {categoria.items.map((item, index) => (
-                <div key={index} style={{
-                  backgroundColor: 'white',
-                  borderRadius: '12px',
-                  padding: '1.5rem',
-                  boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
-                  transition: 'transform 0.3s, box-shadow 0.3s'
-                }}
-                onMouseOver={(e) => {
-                  e.currentTarget.style.transform = 'translateY(-5px)'
-                  e.currentTarget.style.boxShadow = '0 8px 20px rgba(0,0,0,0.15)'
-                }}
-                onMouseOut={(e) => {
-                  e.currentTarget.style.transform = 'translateY(0)'
-                  e.currentTarget.style.boxShadow = '0 2px 8px rgba(0,0,0,0.1)'
-                }}>
-                  <div style={{ fontSize: '4rem', textAlign: 'center', marginBottom: '1rem' }}>
-                    {item.imagen}
-                  </div>
-                  <h4 style={{ color: '#333', fontSize: '1.3rem', marginBottom: '0.5rem' }}>
-                    {item.nombre}
-                  </h4>
-                  <p style={{ color: '#666', fontSize: '0.95rem', marginBottom: '1rem', lineHeight: '1.5' }}>
-                    {item.descripcion}
-                  </p>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <span style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#4a7c59' }}>
-                      ${item.precio.toLocaleString()}
-                    </span>
+                <Col key={index} xs={12} sm={6} lg={4} className="hover-lift">
+                  <Card className="h-100" style={{
+                    backgroundColor: categoria.destacado ? '#fff9e6' : 'white',
+                    border: categoria.destacado ? '2px solid #ffd700' : 'none',
+                    boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+                    position: 'relative',
+                    overflow: 'hidden'
+                  }}>
+                    {item.badge && (
+                      <Badge 
+                        bg="danger" 
+                        className="animate-pulse"
+                        style={{
+                          position: 'absolute',
+                          top: '10px',
+                          right: '10px',
+                          zIndex: 1,
+                          fontSize: '0.75rem'
+                        }}
+                      >
+                        {item.badge}
+                      </Badge>
+                    )}
+                    <Card.Body>
+                      <div className="hover-scale text-center" style={{ fontSize: 'clamp(3rem, 8vw, 4rem)', marginBottom: '1rem' }}>
+                        {item.imagen}
+                      </div>
+                      <Card.Title style={{ fontSize: 'clamp(1.1rem, 3vw, 1.3rem)' }}>
+                        {item.nombre}
+                      </Card.Title>
+                      <Card.Text style={{ fontSize: 'clamp(0.85rem, 2vw, 0.95rem)', color: '#666', minHeight: '3rem' }}>
+                        {item.descripcion}
+                      </Card.Text>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '0.5rem' }}>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.2rem' }}>
+                      {item.descuento && (
+                        <span style={{ 
+                          fontSize: 'clamp(0.8rem, 2vw, 0.9rem)', 
+                          color: '#999', 
+                          textDecoration: 'line-through' 
+                        }}>
+                          ${(item.precio + item.descuento).toLocaleString()}
+                        </span>
+                      )}
+                      <span style={{ 
+                        fontSize: 'clamp(1.3rem, 3vw, 1.5rem)', 
+                        fontWeight: 'bold', 
+                        color: categoria.destacado ? '#ff6b6b' : '#4a7c59' 
+                      }}>
+                        ${item.precio.toLocaleString()}
+                      </span>
+                    </div>
                     <button
                       onClick={() => agregarAlCarrito(item)}
+                      className="btn-modern hover-scale"
                       style={{
-                        backgroundColor: '#4a7c59',
+                        backgroundColor: categoria.destacado ? '#ff6b6b' : '#4a7c59',
                         color: 'white',
                         border: 'none',
                         padding: '0.6rem 1.2rem',
                         borderRadius: '6px',
                         fontWeight: 'bold',
                         cursor: 'pointer',
-                        fontSize: '0.95rem'
+                        fontSize: 'clamp(0.85rem, 2vw, 0.95rem)',
+                        whiteSpace: 'nowrap'
                       }}
                     >
-                      Agregar
+                      {categoria.destacado ? '✨ Agregar Pack' : 'Agregar'}
                     </button>
                   </div>
-                </div>
+                    </Card.Body>
+                  </Card>
+                </Col>
               ))}
-            </div>
+            </Row>
           </section>
         ))}
+        </Container>
       </main>
 
       {/* Modal Pedido */}
       {modalPedido && (
-        <div onClick={() => setModalPedido(false)} style={{
+        <div onClick={() => setModalPedido(false)} className="fade-in" style={{
           position: 'fixed',
           top: 0,
           left: 0,
@@ -301,9 +354,10 @@ ${formData.comentarios}
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
-          padding: '1rem'
+          padding: '1rem',
+          backdropFilter: 'blur(5px)'
         }}>
-          <div onClick={(e) => e.stopPropagation()} style={{
+          <div onClick={(e) => e.stopPropagation()} className="slide-up" style={{
             backgroundColor: 'white',
             borderRadius: '12px',
             padding: 'clamp(1.5rem, 4vw, 2rem)',
@@ -316,7 +370,7 @@ ${formData.comentarios}
               <h2 style={{ color: '#4a7c59', margin: 0, fontSize: 'clamp(1.3rem, 4vw, 1.8rem)' }}>
                 Tu Pedido
               </h2>
-              <button onClick={() => setModalPedido(false)} style={{
+              <button onClick={() => setModalPedido(false)} className="hover-scale" style={{
                 backgroundColor: 'transparent',
                 border: 'none',
                 fontSize: '2rem',
@@ -327,7 +381,7 @@ ${formData.comentarios}
 
             <div style={{ marginBottom: '1.5rem' }}>
               {carrito.map((item, index) => (
-                <div key={index} style={{
+                <div key={index} className="hover-lift" style={{
                   display: 'flex',
                   justifyContent: 'space-between',
                   alignItems: 'center',
@@ -619,19 +673,20 @@ ${formData.comentarios}
       )}
 
       {/* Footer */}
-      <footer style={{
+      <footer className="fade-in" style={{
         backgroundColor: '#4a7c59',
         color: 'white',
-        padding: '2rem',
-        marginTop: '4rem',
-        textAlign: 'center'
+        padding: 'clamp(1.5rem, 3vw, 2rem) 0',
+        marginTop: '4rem'
       }}>
-        <p style={{ margin: 0, fontSize: '1rem' }}>
-          © 2025 Ruka Vegana Angol - Comida Rápida 100% Vegana
-        </p>
-        <p style={{ margin: '0.5rem 0 0 0', fontSize: '0.9rem', opacity: 0.8 }}>
-          🌱 Saludable • Deliciosa • Sustentable
-        </p>
+        <Container className="text-center">
+          <p className="mb-2" style={{ fontSize: 'clamp(0.9rem, 2vw, 1rem)' }}>
+            © 2025 Ruka Vegana Angol - Comida Rápida 100% Vegana
+          </p>
+          <p className="mb-0" style={{ fontSize: 'clamp(0.8rem, 2vw, 0.9rem)', opacity: 0.8 }}>
+            🌱 Saludable • Deliciosa • Sustentable
+          </p>
+        </Container>
       </footer>
     </div>
   )
